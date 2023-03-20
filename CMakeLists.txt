@@ -8,7 +8,7 @@ set(TARGET_NAME myapp)
 project(${TARGET_NAME})
 
 # Dependencies (optional, only used for example)
-find_package(OpenCV REQUIRED)
+find_package(OpenCV CONFIG REQUIRED)
 
 # Add source files
 add_executable("${TARGET_NAME}"
@@ -30,6 +30,10 @@ endif()
 # Set compiler features (c++14)
 set_property(TARGET ${TARGET_NAME} PROPERTY CXX_STANDARD 14)
 
+add_custom_command(TARGET ${TARGET_NAME} POST_BUILD 
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/blobs $<TARGET_FILE_DIR:${TARGET_NAME}>/blobs
+    COMMENT "Copying blob files" VERBATIM)
+
 # Windows - Add runtime dependencies
 if(WIN32)
     if(CMAKE_VERSION VERSION_LESS "3.21")
@@ -44,3 +48,5 @@ if(WIN32)
         )
     endif()
 endif()
+
+
