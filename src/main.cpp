@@ -95,9 +95,7 @@ int main() {
 
 		//// Wait and check if 'q' pressed
 		if (cv::waitKey(1) == 'q') return 0;
-
 	}
-
 	return 0;
 }
 

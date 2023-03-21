@@ -34,6 +34,10 @@ add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/blobs $<TARGET_FILE_DIR:${TARGET_NAME}>/blobs
     COMMENT "Copying blob files" VERBATIM)
 
+add_custom_command(TARGET ${TARGET_NAME} PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/libusb/ $<TARGET_FILE_DIR:${TARGET_NAME}>)
+
 # Windows - Add runtime dependencies
 if(WIN32)
     if(CMAKE_VERSION VERSION_LESS "3.21")
